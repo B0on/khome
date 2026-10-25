@@ -1,0 +1,63 @@
+/* Shared canvas for the three UX concept mockups.
+   1072 x 1448, drawn 1:1 so screen coordinates match SPEC.md. Same fonts,
+   3 px rules and four ink values as design/system, but each concept owns
+   its own composition. */
+
+@font-face{
+  font-family:"SerifB";
+  src:url("../../system/fonts/NotoSerifJP-Bold.ttf") format("truetype");
+  font-weight:700;
+  font-style:normal;
+  font-display:block;
+}
+@font-face{
+  font-family:"SerifR";
+  src:url("../../system/fonts/NotoSerifJP-Regular.ttf") format("truetype");
+  font-weight:400;
+  font-style:normal;
+  font-display:block;
+}
+@font-face{
+  font-family:"SansM";
+  src:url("../../system/fonts/NotoSansJP-Medium.ttf") format("truetype");
+  font-weight:500;
+  font-style:normal;
+  font-display:block;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1072px;height:1448px}
+body{
+  background:#fff;
+  color:#000;
+  overflow:hidden;
+  font-family:"SansM",sans-serif;
+  font-weight:500;
+  font-synthesis:none;
+  -webkit-font-smoothing:antialiased;
+}
+
+.t{position:absolute;line-height:1;white-space:nowrap;margin:0}
+.serifb{font-family:"SerifB";font-weight:700}
+.serifr{font-family:"SerifR";font-weight:400}
+.sans{font-family:"SansM";font-weight:500}
+.mid{color:#555}
+.faint{color:#999}
+.white{color:#fff}
+.center{text-align:center}
+.right{text-align:right}
+
+.rule{position:absolute;background:#000;height:3px}
+.rule8{position:absolute;background:#000;height:8px}
+.rule6{position:absolute;background:#000;height:6px}
+.icon{position:absolute;display:block}
+
+.box{position:absolute;border:3px solid #000;background:#fff}
+.box5{position:absolute;border:5px solid #000;background:#fff}
+.card{position:absolute;border:3px solid #000;background:#fff}
+.circle{position:absolute;border:4px solid #000;border-radius:50%;background:#fff}
+.disc{position:absolute;border-radius:50%;background:#000}
+.fill{position:absolute;background:#000}
+
+/* A tappable box is declared here so its size is reviewable in the markup. */
+.tap{position:absolute}

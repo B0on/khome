@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kindle home mock — C</title>
+<style>
+  @font-face{
+    font-family:"Noto Sans JP Mock";
+    src:url("../fonts/NotoSansJP.ttf") format("truetype");
+    font-weight:100 900;
+    font-style:normal;
+  }
+  :root{
+    --ink:#000;
+    --mid:#6b6b6b;
+    --paper:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1072px;height:1448px;background:var(--paper)}
+  body{
+    font-family:"Noto Sans JP Mock","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .screen{
+    width:1072px;height:1448px;
+    border:10px solid var(--ink);
+    padding:0 30px;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+
+  /* ---------- status ---------- */
+  .status{
+    height:96px;flex:none;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .status .time{font-size:34px;font-weight:800;letter-spacing:2px;font-feature-settings:"tnum" 1}
+  .status .icons{display:flex;align-items:center;gap:18px}
+  .status svg{display:block}
+
+  .rule{height:5px;background:var(--ink);flex:none}
+  .bleed{margin-left:-30px;margin-right:-30px}
+
+  /* ---------- clock tile ---------- */
+  .clock{
+    margin-top:24px;flex:none;
+    height:400px;
+    background:var(--ink);
+    color:#fff;
+    padding:32px 36px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .clock .time{
+    font-size:270px;font-weight:800;line-height:.88;letter-spacing:-12px;
+    font-feature-settings:"tnum" 1;
+  }
+  .clock .foot{
+    display:flex;align-items:flex-end;justify-content:space-between;
+  }
+  .clock .date{font-size:42px;font-weight:600;letter-spacing:4px}
+  .clock .zone{font-size:28px;font-weight:500;letter-spacing:4px;color:#b0b0b0}
+
+  /* ---------- app tiles ---------- */
+  .apps{
+    margin-top:20px;flex:none;
+    display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  }
+  .app{
+    height:226px;
+    border:4px solid var(--ink);
+    padding:22px 26px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .app .top{display:flex;align-items:flex-start;justify-content:space-between}
+  .app .top svg{width:100px;height:100px;color:#000}
+  .app .tag{font-size:28px;font-weight:600;letter-spacing:2px;color:var(--mid)}
+  .app .name{font-size:44px;font-weight:700;letter-spacing:2px;line-height:1}
+
+  /* ---------- shortcut tiles ---------- */
+  .sec{
+    margin-top:30px;flex:none;
+    display:flex;align-items:center;gap:16px;
+  }
+  .sec .bar{width:16px;height:32px;background:var(--ink)}
+  .sec h2{font-size:30px;font-weight:700;letter-spacing:5px}
+
+  .sites{
+    margin-top:16px;flex:none;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  .site{
+    height:214px;
+    background:var(--ink);color:#fff;
+    padding:20px 22px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .site .name{font-size:28px;font-weight:600;letter-spacing:2px;line-height:1.2}
+  .site .mark{font-size:104px;font-weight:800;line-height:.8;letter-spacing:-4px}
+  .site .mark.two{font-size:84px;letter-spacing:-3px}
+
+  /* ---------- footer ---------- */
+  .pager{
+    margin-top:auto;
+    display:flex;align-items:center;gap:14px;
+    padding:28px 0 28px;
+  }
+  .pager i{display:block;width:16px;height:16px;background:var(--ink)}
+  .pager i.on{width:56px}
+</style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="status">
+    <div class="time">10:42</div>
+    <div class="icons">
+      <svg width="46" height="34" viewBox="0 0 32 24" fill="none" stroke="#000" stroke-width="2.8" stroke-linecap="butt">
+        <path d="M4.5 9.6a15.5 15.5 0 0 1 23 0"/>
+        <path d="M9 14.2a9.2 9.2 0 0 1 14 0"/>
+        <path d="M13.4 18.6a3.6 3.6 0 0 1 5.2 0"/>
+        <rect x="14.2" y="19.6" width="3.6" height="3.6" fill="#000" stroke="none"/>
+      </svg>
+      <svg width="56" height="28" viewBox="0 0 34 18" fill="none">
+        <rect x="1.5" y="1.5" width="27" height="15" rx="1" stroke="#000" stroke-width="3"/>
+        <rect x="30.5" y="6" width="3" height="6" fill="#000"/>
+        <rect x="5" y="5" width="16" height="8" fill="#000"/>
+      </svg>
+    </div>
+  </div>
+  <div class="rule bleed"></div>
+
+  <!-- clock -->
+  <div class="clock">
+    <div class="time">10:42</div>
+    <div class="foot">
+      <div class="date">10月23日 木曜日</div>
+      <div class="zone">AM</div>
+    </div>
+  </div>
+
+  <!-- apps -->
+  <div class="apps">
+    <div class="app">
+      <div class="top">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter">
+          <rect x="7" y="9" width="34" height="30"/>
+          <path d="M12.5 15.5h14"/>
+          <path d="M12.5 21.5h9"/>
+          <path d="M12.5 26.5h9"/>
+          <path d="M12.5 31.5h6"/>
+          <rect x="26" y="20.5" width="9.5" height="11"/>
+        </svg>
+        <div class="tag">NEWS</div>
+      </div>
+      <div class="name">新聞</div>
+    </div>
+
+    <div class="app">
+      <div class="top">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter">
+          <path d="M9 10.5h30v22H25l-9 7v-7H9z"/>
+          <path d="M13 17.5h22"/>
+          <path d="M13 23.5h16"/>
+        </svg>
+        <div class="tag">COMICS</div>
+      </div>
+      <div class="name">漫画</div>
+    </div>
+
+    <div class="app">
+      <div class="top">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter">
+          <circle cx="24" cy="24" r="15.5"/>
+          <ellipse cx="24" cy="24" rx="7.5" ry="15.5"/>
+          <path d="M8.5 24h31"/>
+          <path d="M10.6 16.5h26.8"/>
+          <path d="M10.6 31.5h26.8"/>
+        </svg>
+        <div class="tag">WEB</div>
+      </div>
+      <div class="name">ブラウザ</div>
+    </div>
+
+    <div class="app">
+      <div class="top">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter">
+          <circle cx="24" cy="24" r="10.4"/>
+          <circle cx="24" cy="24" r="4.6"/>
+          <g fill="currentColor" stroke="none">
+            <rect x="20.2" y="6.2" width="7.6" height="6"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(45 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(90 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(135 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(180 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(225 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(270 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" transform="rotate(315 24 24)"/>
+          </g>
+        </svg>
+        <div class="tag">SET</div>
+      </div>
+      <div class="name">設定</div>
+    </div>
+  </div>
+
+  <!-- shortcuts -->
+  <div class="sec">
+    <div class="bar"></div>
+    <h2>ショートカット</h2>
+  </div>
+
+  <div class="sites">
+    <div class="site">
+      <div class="name">ZENN</div>
+      <div class="mark">Z</div>
+    </div>
+    <div class="site">
+      <div class="name">HACKER NEWS</div>
+      <div class="mark two">HN</div>
+    </div>
+    <div class="site">
+      <div class="name">WIKIPEDIA</div>
+      <div class="mark">W</div>
+    </div>
+  </div>
+
+  <div class="pager"><i class="on"></i><i></i><i></i></div>
+</div>
+</body>
+</html>

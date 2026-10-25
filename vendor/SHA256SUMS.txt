@@ -1,0 +1,2 @@
+ea1f575c54492a2c679d128b7f3210fd7d6a87e5f5a1ff1f7a7fe2080ff68f86  vendor/koreader-kindlepw2-v2026.07.1.zip
+9255a86e750fd5e62fe856e3602556a83eb43b438c2cd41512abf53e0fe3e155  vendor/rakuyomi-kindle.zip

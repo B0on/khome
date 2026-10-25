@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kindle home mock — B</title>
+<style>
+  @font-face{
+    font-family:"Noto Sans JP Mock";
+    src:url("../fonts/NotoSansJP.ttf") format("truetype");
+    font-weight:100 900;
+    font-style:normal;
+  }
+  @font-face{
+    font-family:"Noto Serif JP Mock";
+    src:url("../fonts/NotoSerifJP.ttf") format("truetype");
+    font-weight:100 900;
+    font-style:normal;
+  }
+  :root{
+    --ink:#000;
+    --mid:#6b6b6b;
+    --paper:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1072px;height:1448px;background:var(--paper)}
+  body{
+    font-family:"Noto Sans JP Mock","Hiragino Sans",sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .page{
+    width:1072px;height:1448px;
+    padding:0 64px;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+  .rule{height:3px;background:var(--ink);flex:none}
+  .bleed{margin-left:-64px;margin-right:-64px}
+
+  /* ---------- status ---------- */
+  .status{
+    height:88px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .status .time{font-size:32px;font-weight:500;letter-spacing:2px;font-feature-settings:"tnum" 1}
+  .status .icons{display:flex;align-items:center;gap:18px}
+  .status svg{display:block}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    height:84px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .masthead .brand{
+    font-family:"Noto Serif JP Mock","Hiragino Mincho ProN",serif;
+    font-size:40px;font-weight:700;letter-spacing:12px;
+  }
+  .masthead .issue{
+    font-size:28px;font-weight:500;letter-spacing:4px;color:var(--mid);
+  }
+
+  /* ---------- clock ---------- */
+  .clock{padding-top:38px}
+  .clock .time{
+    font-family:"Noto Serif JP Mock","Hiragino Mincho ProN",serif;
+    font-size:276px;font-weight:700;line-height:.93;letter-spacing:-6px;
+    font-feature-settings:"tnum" 1;
+  }
+  .clock .date{
+    margin-top:22px;
+    font-family:"Noto Serif JP Mock","Hiragino Mincho ProN",serif;
+    font-size:44px;font-weight:500;letter-spacing:5px;
+  }
+  .clock .date .dim{color:var(--mid);letter-spacing:7px}
+
+  /* ---------- section heading ---------- */
+  .sec-head{
+    display:flex;align-items:center;gap:20px;
+    margin-top:32px;
+  }
+  .sec-head .sq{width:14px;height:14px;background:var(--ink);flex:none}
+  .sec-head h2{font-size:30px;font-weight:700;letter-spacing:6px;flex:none}
+  .sec-head .line{height:3px;background:var(--ink);flex:1;margin-left:8px}
+
+  /* ---------- app grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .apps{margin-top:24px}
+  .cell{display:flex;flex-direction:column;align-items:center}
+  .app-icon{
+    width:156px;height:156px;border:3px solid var(--ink);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .app-icon svg{width:88px;height:88px;color:#000}
+  .cell .label{
+    margin-top:20px;
+    font-family:"Noto Serif JP Mock","Hiragino Mincho ProN",serif;
+    font-size:34px;font-weight:600;letter-spacing:3px;line-height:1.3;
+  }
+
+  /* ---------- favourites as an index ---------- */
+  .index{margin-top:20px;border-top:3px solid var(--ink)}
+  .row{
+    display:flex;align-items:center;
+    height:108px;
+    border-bottom:3px solid var(--ink);
+  }
+  .row .mark{
+    width:64px;height:64px;flex:none;
+    border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Noto Serif JP Mock",serif;
+    font-size:34px;font-weight:700;
+  }
+  .row .mark.two{font-size:28px;letter-spacing:-1px}
+  .row .no{
+    width:96px;flex:none;
+    padding-left:30px;
+    font-size:28px;font-weight:500;letter-spacing:3px;color:var(--mid);
+  }
+  .row .name{
+    flex:1;
+    font-family:"Noto Serif JP Mock","Hiragino Mincho ProN",serif;
+    font-size:48px;font-weight:600;letter-spacing:2px;
+  }
+  .row svg{flex:none;margin-right:6px}
+
+  /* ---------- footer ---------- */
+  .footer{
+    margin-top:auto;
+    padding-top:26px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:34px;
+  }
+  .footer .brand{
+    font-size:28px;font-weight:600;letter-spacing:8px;
+  }
+  .footer .page-no{
+    font-size:28px;font-weight:500;letter-spacing:4px;color:var(--mid);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="status">
+    <div class="time">10:42</div>
+    <div class="icons">
+      <svg width="46" height="34" viewBox="0 0 32 24" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round">
+        <path d="M4.5 9.6a15.5 15.5 0 0 1 23 0"/>
+        <path d="M9 14.2a9.2 9.2 0 0 1 14 0"/>
+        <path d="M13.4 18.6a3.6 3.6 0 0 1 5.2 0"/>
+        <circle cx="16" cy="21.4" r="1.8" fill="#000" stroke="none"/>
+      </svg>
+      <svg width="56" height="28" viewBox="0 0 34 18" fill="none">
+        <rect x="1.5" y="1.5" width="27" height="15" rx="3.5" stroke="#000" stroke-width="3"/>
+        <rect x="30.5" y="6" width="3" height="6" rx="1.5" fill="#000"/>
+        <rect x="5" y="5" width="16" height="8" rx="1.5" fill="#000"/>
+      </svg>
+    </div>
+  </div>
+  <div class="rule bleed"></div>
+
+  <div class="masthead">
+    <div class="brand">KINDLE</div>
+    <div class="issue">NO. 043</div>
+  </div>
+  <div class="rule bleed"></div>
+
+  <div class="clock">
+    <div class="time">10:42</div>
+    <div class="date">10月23日 <span class="dim">木曜日</span></div>
+  </div>
+  <div class="rule bleed" style="margin-top:30px"></div>
+
+  <div class="sec-head">
+    <div class="sq"></div>
+    <h2>アプリ</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid apps">
+    <div class="cell">
+      <div class="app-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="9" width="34" height="30" rx="2.5"/>
+          <path d="M12.5 15.5h14"/>
+          <path d="M12.5 21.5h9"/>
+          <path d="M12.5 26.5h9"/>
+          <path d="M12.5 31.5h6"/>
+          <rect x="26" y="20.5" width="9.5" height="11"/>
+        </svg>
+      </div>
+      <div class="label">新聞</div>
+    </div>
+    <div class="cell">
+      <div class="app-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 10.5h30a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H25l-9 7v-7H9a2 2 0 0 1-2-2v-18a2 2 0 0 1 2-2z"/>
+          <path d="M13 17.5h22"/>
+          <path d="M13 23.5h16"/>
+        </svg>
+      </div>
+      <div class="label">漫画</div>
+    </div>
+    <div class="cell">
+      <div class="app-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="24" r="15.5"/>
+          <ellipse cx="24" cy="24" rx="7.5" ry="15.5"/>
+          <path d="M8.5 24h31"/>
+          <path d="M10.6 16.5h26.8"/>
+          <path d="M10.6 31.5h26.8"/>
+        </svg>
+      </div>
+      <div class="label">ブラウザ</div>
+    </div>
+    <div class="cell">
+      <div class="app-icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="24" r="10.4" stroke-width="3.2"/>
+          <circle cx="24" cy="24" r="4.6" stroke-width="3.2"/>
+          <g fill="currentColor" stroke="none">
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(45 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(90 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(135 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(180 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(225 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(270 24 24)"/>
+            <rect x="20.2" y="6.2" width="7.6" height="6" rx="1.6" transform="rotate(315 24 24)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="label">設定</div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sq"></div>
+    <h2>お気に入り</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="index">
+    <div class="row">
+      <div class="mark">Z</div>
+      <div class="no">01</div>
+      <div class="name">Zenn</div>
+      <svg width="24" height="42" viewBox="0 0 12 21" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square">
+        <path d="M2 2l8 8.5L2 19"/>
+      </svg>
+    </div>
+    <div class="row">
+      <div class="mark two">HN</div>
+      <div class="no">02</div>
+      <div class="name">Hacker News</div>
+      <svg width="24" height="42" viewBox="0 0 12 21" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square">
+        <path d="M2 2l8 8.5L2 19"/>
+      </svg>
+    </div>
+    <div class="row">
+      <div class="mark">W</div>
+      <div class="no">03</div>
+      <div class="name">Wikipedia</div>
+      <svg width="24" height="42" viewBox="0 0 12 21" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square">
+        <path d="M2 2l8 8.5L2 19"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="brand">KINDLE</div>
+    <div class="page-no">01 / 03</div>
+  </div>
+</div>
+</body>
+</html>

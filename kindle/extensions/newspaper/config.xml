@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+	<information>
+		<name>The Kindle Times</name>
+		<version>0.1.0-spike</version>
+		<author>kindle-newspaper</author>
+		<id>KindleTimes-Newspaper</id>
+	</information>
+	<menus>
+		<menu type="json" dynamic="true">menu.json</menu>
+	</menus>
+</extension>

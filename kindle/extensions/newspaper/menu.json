@@ -1,0 +1,21 @@
+{
+	"comment": "The Kindle Times — text edition fetch",
+	"items": [
+		{
+			"name": "The Kindle Times",
+			"priority": 50,
+			"items": [
+				{
+					"name": "Refresh edition",
+					"action": "./bin/refresh.sh",
+					"params": "",
+					"exitmenu": false,
+					"checked": true,
+					"refresh": false,
+					"status": false,
+					"internal": "status Fetch latest-text.json and bundle when checksum differs"
+				}
+			]
+		}
+	]
+}
