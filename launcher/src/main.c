@@ -586,8 +586,8 @@ static int parse_wpa_status(const char *status, char *ssid, size_t cap)
 }
 
 /* lipc's battLevel jumps close to 100% once charging finishes, so with cv_prm
- * lowered it drifts far from the real charge.  Prefer the panel's own gauge
- * and fall back to lipc only when the node is missing. */
+ * lowered it drifts far from the real charge.  model_update reads the gauge's
+ * mix value instead while the charge limit is on. */
 static int battery_mix_read(int *level)
 {
     char text[32];
@@ -685,7 +685,11 @@ static void model_update(HomeModel *m)
         }
     }
 
-    if (battery_mix_read(&battery) == 0) {
+    /* The gauge's mix value drifts after a lowered cv_prm and does not
+     * recover on a full charge, so trust it only while the limit is on. */
+    int mv = cv_prm_read();
+
+    if (mv > 0 && mv < 4100 && battery_mix_read(&battery) == 0) {
         m->battery_level = battery;
     } else if (lipc_get_int("com.lab126.powerd", "battLevel", &battery) == 0 &&
                battery >= 0 && battery <= 100) {
